@@ -10,4 +10,12 @@ export interface UserProps {
 
 export class User {
   private props: UserProps;
+
+  get name() {
+    return this.props.name;
+  }
+
+  constructor(props: UserProps) {
+    this.props = props;
+  }
 }
