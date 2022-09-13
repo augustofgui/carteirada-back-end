@@ -11,13 +11,24 @@ datasource db {
 }
 
 model User {
-  id            String      @id   @default(uuid())
-  name          String
-  login         String      @unique
-  email         String      @unique
-  password      String
-  telephone     String
-  created_at    DateTime    @default(now())
+  id             String           @id @default(uuid())
+  name           String
+  login          String           @unique
+  email          String           @unique
+  password       String
+  telephone      String
+  createdAt      DateTime         @default(now())
+  PhysicalPerson PhysicalPerson[]
 
   @@map("users")
+}
+
+model PhysicalPerson {
+  userId        String   @id
+  birthDate     DateTime
+  maritalStatus String
+  createdAt     DateTime @default(now())
+  User          User     @relation(fields: [userId], references: [id])
+
+  @@map("physical_persons")
 }
