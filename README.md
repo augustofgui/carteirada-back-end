@@ -23,7 +23,7 @@
 
 ```ts
 const prismaClient = new PrismaClient({
-  log: ["error", "info", "query", "warn"],
+  log: ['error', 'info', 'query', 'warn'],
 });
 ```
 
