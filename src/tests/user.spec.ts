@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { User } from '../core/user';
+import { User } from '../core/entities/user';
 
 test('create an user', () => {
   const user = new User({
