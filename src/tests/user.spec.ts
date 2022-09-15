@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { User } from '../src/entities/user';
+import { User } from '../core/user';
 
 test('create an user', () => {
   const user = new User({
@@ -9,7 +9,7 @@ test('create an user', () => {
     email: 'john@doe.com',
     password: '12341234',
     telephone: '12341234',
-    created_at: new Date(),
+    createdAt: new Date(),
   });
 
   expect(user).toBeInstanceOf(User);

@@ -11,24 +11,77 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  name           String
-  login          String           @unique
-  email          String           @unique
-  password       String
-  telephone      String
-  createdAt      DateTime         @default(now())
-  PhysicalPerson PhysicalPerson[]
+  id              String            @id @default(uuid())
+  name            String
+  login           String            @unique
+  email           String            @unique
+  password        String
+  telephone       String
+  createdAt       DateTime          @default(now())
+  PhysicalPerson  PhysicalPerson?
+  InvestimentFund InvestimentFund?
+  JuridicPersons  JuridicPersons?
+  Investiments    Investiments[]
 
   @@map("users")
 }
 
 model PhysicalPerson {
-  userId        String   @id
+  userId        String    @id
   birthDate     DateTime
   maritalStatus String
-  createdAt     DateTime @default(now())
-  User          User     @relation(fields: [userId], references: [id])
+  User          User      @relation(fields: [userId], references: [id])
 
   @@map("physical_persons")
+}
+
+model InvestimentFund {
+  userId        String    @id
+  type          String
+  User          User      @relation(fields: [userId], references: [id])
+
+  @@map("investiment_funds")
+}
+
+model JuridicPersons {
+  userId        String    @id
+  cnae          String
+  birthDate     DateTime
+  situation     String
+  User          User      @relation(fields: [userId], references: [id])
+
+  @@map("juridic_persons")
+}
+
+model StockExchange {
+  abbreviation  String    @id
+  name          String
+  index         Float
+  ActiveAsset   ActiveAsset[]
+
+  @@map("stock_exchanges")
+}
+
+model ActiveAsset {
+  stock_exchanges_abbreviation  String          @id
+  code                          String          @unique
+  name                          String
+  StockExchange                 StockExchange   @relation(fields: [stock_exchanges_abbreviation], references: [abbreviation])
+  Investiments                  Investiments[]
+
+  @@map("active_assets")
+}
+
+model Investiments {
+  userId          String
+  assetCode       String
+  currentValue    Float
+  quantity        Decimal
+  totalValue      Float
+  purchase_date   DateTime
+  User            User          @relation(fields: [userId], references: [id])
+  ActiveAsset     ActiveAsset   @relation(fields: [assetCode], references: [code])
+
+  @@unique([userId, assetCode])
+  @@map("investiments")
 }
