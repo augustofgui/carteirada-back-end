@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/app/server.ts"
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/app/server.ts",
+    "tsc": "tsc",
+    "start": "node ./build/src/app/server.js"
   },
   "author": "",
   "license": "ISC",
