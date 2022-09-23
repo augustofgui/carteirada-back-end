@@ -7,4 +7,4 @@ const port = process.env.PORT || 4003;
 app.use(express.json());
 app.use(router);
 
-app.listen(port, () => console.log('🚀 Server is runnning in PORT 4003'));
+app.listen(port, () => console.log('🚀 Server is runnning in PORT ' + port));

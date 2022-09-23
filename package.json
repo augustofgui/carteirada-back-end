@@ -6,8 +6,12 @@
   "scripts": {
     "test": "vitest",
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/app/server.ts",
-    "tsc": "tsc",
-    "start": "node ./build/src/app/server.js"
+    "build": "npm run migrate:deploy && tsc --project tsconfig.build.json",
+    "start": "node ./build/src/app/server.js",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:status": "prisma migrate status",
+    "generate": "prisma generate"
   },
   "author": "",
   "license": "ISC",

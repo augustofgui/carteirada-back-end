@@ -1,13 +1,7 @@
 import { ICreateUserDTO, User, UserProps } from '../entities/user';
 
 export default interface IUsersRepository {
-  create({
-    name,
-    login,
-    email,
-    password,
-    telephone,
-  }: ICreateUserDTO): Promise<User>;
+  create({ login, email, password }: ICreateUserDTO): Promise<User>;
 
   findUserByEmail({ email }: Pick<UserProps, 'email'>): Promise<User | null>;
 

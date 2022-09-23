@@ -8,11 +8,9 @@ export default class CreateUserService {
   }
 
   public async execute({
-    name,
     login,
     email,
     password,
-    telephone,
   }: ICreateUserDTO): Promise<User> {
     const checkUniqueUserEmail = await this.usersRepository.findUserByEmail({
       email,
@@ -33,11 +31,9 @@ export default class CreateUserService {
     //HASH PASSWORD
 
     const newUser = new User({
-      name,
       login,
       email,
       password,
-      telephone,
     });
 
     const user = await this.usersRepository.create(newUser);

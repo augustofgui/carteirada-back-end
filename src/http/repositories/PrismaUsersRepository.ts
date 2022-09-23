@@ -3,20 +3,12 @@ import IUsersRepository from '../../core/repositories/IUsersRepository';
 import prismaClient from '../../infra/database/prisma/PrismaClient';
 
 export default class PrismaUsersRepository implements IUsersRepository {
-  public async create({
-    name,
-    login,
-    email,
-    password,
-    telephone,
-  }: UserProps): Promise<User> {
+  public async create({ login, email, password }: UserProps): Promise<User> {
     const createdUser = await prismaClient.user.create({
       data: {
-        name,
         login,
         email,
         password,
-        telephone,
       },
     });
 
