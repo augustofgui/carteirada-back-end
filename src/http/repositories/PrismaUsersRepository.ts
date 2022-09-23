@@ -15,6 +15,38 @@ export default class PrismaUsersRepository implements IUsersRepository {
     return createdUser;
   }
 
+  public async getAllUsers(): Promise<User[]> {
+    const users = (await prismaClient.user.findMany({
+      select: {
+        id: true,
+        login: true,
+        email: true,
+        password: false,
+        createdAt: true,
+      },
+    })) as User[];
+    return users;
+  }
+
+  public async findUserById({
+    id,
+  }: Pick<UserProps, 'id'>): Promise<User | null> {
+    const foundUser = (await prismaClient.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        login: true,
+        email: true,
+        password: false,
+        createdAt: true,
+      },
+    })) as User;
+
+    if (!foundUser) return null;
+
+    return foundUser;
+  }
+
   public async findUserByEmail({
     email,
   }: Pick<UserProps, 'email'>): Promise<User | null> {
