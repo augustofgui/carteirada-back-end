@@ -1,6 +1,6 @@
-import { ICreateUserDTO, User, UserProps } from '../../core/entities/user';
-import IUsersRepository from '../../core/repositories/IUsersRepository';
-import PrismaUsersRepository from '../../http/repositories/PrismaUsersRepository';
+import { ICreateUserDTO, User, UserProps } from '@core/entities/User';
+import IUsersRepository from '@core/repositories/IUsersRepository';
+import PrismaUsersRepository from '@http/repositories/PrismaUsersRepository';
 
 export default class GetAllUsersService {
   constructor(private readonly usersRepository: IUsersRepository) {

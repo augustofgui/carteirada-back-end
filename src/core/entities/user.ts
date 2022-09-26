@@ -1,3 +1,4 @@
+import AppError from '@core/errors/AppError';
 import { randomUUID } from 'crypto';
 
 export interface UserProps {
@@ -25,7 +26,7 @@ export class User {
     const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
 
     if (!emailRegex.test(email)) {
-      throw new Error('An user with a invalid email!');
+      throw new AppError('An user with a invalid email!');
     }
 
     this.id = randomUUID();

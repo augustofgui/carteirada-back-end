@@ -1,6 +1,7 @@
-import { ICreateUserDTO, User } from '../../core/entities/user';
-import IUsersRepository from '../../core/repositories/IUsersRepository';
-import PrismaUsersRepository from '../../http/repositories/PrismaUsersRepository';
+import { ICreateUserDTO, User } from '@core/entities/User';
+import AppError from '@core/errors/AppError';
+import IUsersRepository from '@core/repositories/IUsersRepository';
+import PrismaUsersRepository from '@http/repositories/PrismaUsersRepository';
 
 export default class CreateUserService {
   constructor(private readonly usersRepository: IUsersRepository) {
@@ -17,7 +18,7 @@ export default class CreateUserService {
     });
 
     if (checkUniqueUserEmail) {
-      throw new Error('Email address already in use.');
+      throw new AppError('Email address already in use.');
     }
 
     const checkUniqueUserLogin = await this.usersRepository.findUserByLogin({
@@ -25,7 +26,7 @@ export default class CreateUserService {
     });
 
     if (checkUniqueUserLogin) {
-      throw new Error('Login address already in use.');
+      throw new AppError('Login address already in use.');
     }
 
     //HASH PASSWORD

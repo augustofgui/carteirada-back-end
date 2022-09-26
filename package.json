@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/app/server.ts",
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/app/server.ts",
     "build": "npm run migrate:deploy && tsc --project tsconfig.build.json",
     "start": "node ./build/app/server.js",
     "migrate:dev": "prisma migrate dev",
@@ -16,7 +16,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.17",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "dotenv": "^16.0.2",
@@ -29,14 +31,20 @@
     "eslint-plugin-promise": "^6.0.1",
     "prettier": "2.7.1",
     "prisma": "^4.3.1",
+    "sucrase": "^3.27.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.1.0",
     "typescript": "^4.8.3",
+    "vite-tsconfig-paths": "^3.5.1",
     "vitest": "^0.23.2"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
-    "express": "^4.18.1"
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1"
   },
   "prisma": {
     "schema": "src/infra/database/prisma/schema.prisma"

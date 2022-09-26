@@ -1,6 +1,6 @@
-import { User, UserProps } from '../../core/entities/user';
-import IUsersRepository from '../../core/repositories/IUsersRepository';
-import prismaClient from '../../infra/database/prisma/PrismaClient';
+import { User, UserProps } from '@core/entities/User';
+import IUsersRepository from '@core/repositories/IUsersRepository';
+import prismaClient from '@infra/database/prisma/PrismaClient';
 
 export default class PrismaUsersRepository implements IUsersRepository {
   public async create({ login, email, password }: UserProps): Promise<User> {
