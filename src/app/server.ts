@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
+import 'sucrase/register';
 
 import router from '@http/routes';
 
