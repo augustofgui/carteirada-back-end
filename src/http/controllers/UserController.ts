@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import CreateUserService from '@app/use-cases/CreateUserService';
 import GetAllUsersService from '@app/use-cases/GetAllUsersService';
@@ -17,10 +18,7 @@ interface UserDTO {
 export default class UserController {
   public async create(req: Request, res: Response) {
     const { login, email, password } = req.body;
-
-    const usersRepository = new PrismaUsersRepository();
-    const hashProvider = new BCryptHashProvider();
-    const createUser = new CreateUserService(usersRepository, hashProvider);
+    const createUser = container.resolve(CreateUserService);
 
     const user = await createUser.execute({
       login,

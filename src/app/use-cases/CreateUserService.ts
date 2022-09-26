@@ -1,12 +1,16 @@
+import { injectable, inject } from 'tsyringe';
 import { ICreateUserDTO, User } from '@core/entities/User';
 import AppError from '@core/errors/AppError';
 import IUsersRepository from '@core/repositories/IUsersRepository';
 import PrismaUsersRepository from '@http/repositories/PrismaUsersRepository';
 import IHashProvider from '@infra/providers/HashProvider/models/IHashProvider';
 
+@injectable()
 export default class CreateUserService {
   constructor(
+    @inject('UsersRepository')
     private readonly usersRepository: IUsersRepository,
+    @inject('HashProvider')
     private readonly hashProvider: IHashProvider
   ) {
     this.usersRepository = new PrismaUsersRepository();

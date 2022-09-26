@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
+import 'reflect-metadata';
 
 import router from '@http/routes';
+import '@containers/index';
 
 import AppError from '@core/errors/AppError';
 
@@ -22,7 +24,7 @@ app.use(
 
     return response.status(500).json({
       status: 'error',
-      messsage: 'Internal server error',
+      messsage: 'Internal server errors',
     });
   }
 );
