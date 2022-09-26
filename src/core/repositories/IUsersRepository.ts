@@ -1,4 +1,4 @@
-import { ICreateUserDTO, User, UserProps } from '@core/entities/User';
+import { User, ICreateUserDTO, UserProps } from '@core/entities/User';
 
 export default interface IUsersRepository {
   create({ login, email, password }: ICreateUserDTO): Promise<User>;
