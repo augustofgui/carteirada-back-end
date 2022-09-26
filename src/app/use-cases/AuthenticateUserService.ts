@@ -26,7 +26,10 @@ class AuthenticateUserService {
     private readonly hashProvider: IHashProvider
   ) {}
 
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
+  public async execute({
+    email,
+    password,
+  }: Pick<User, 'email' | 'password'>): Promise<IResponse> {
     const user = await this.usersRepository.findUserByEmail({ email });
 
     if (!user) {
