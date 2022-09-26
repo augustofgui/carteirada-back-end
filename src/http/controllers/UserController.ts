@@ -6,6 +6,7 @@ import GetUserService from '@app/use-cases/GetUserService';
 import PrismaUsersRepository from '@http/repositories/PrismaUsersRepository';
 import AuthenticateUserService from '@app/use-cases/AuthenticateUserService';
 import JWTTokenProvider from '@infra/providers/TokenProvider/implementations/JWTTokenProvider';
+import BCryptHashProvider from '@infra/providers/HashProvider/implementations/BCryptHashProvider';
 
 interface UserDTO {
   id: string;
@@ -18,7 +19,8 @@ export default class UserController {
     const { login, email, password } = req.body;
 
     const usersRepository = new PrismaUsersRepository();
-    const createUser = new CreateUserService(usersRepository);
+    const hashProvider = new BCryptHashProvider();
+    const createUser = new CreateUserService(usersRepository, hashProvider);
 
     const user = await createUser.execute({
       login,
@@ -34,9 +36,11 @@ export default class UserController {
 
     const usersRepository = new PrismaUsersRepository();
     const tokenProvider = new JWTTokenProvider();
+    const hashProvider = new BCryptHashProvider();
     const authenticateUserService = new AuthenticateUserService(
       usersRepository,
-      tokenProvider
+      tokenProvider,
+      hashProvider
     );
 
     const { user, token } = await authenticateUserService.execute({

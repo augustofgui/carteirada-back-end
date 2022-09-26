@@ -2,9 +2,13 @@ import { ICreateUserDTO, User } from '@core/entities/User';
 import AppError from '@core/errors/AppError';
 import IUsersRepository from '@core/repositories/IUsersRepository';
 import PrismaUsersRepository from '@http/repositories/PrismaUsersRepository';
+import IHashProvider from '@infra/providers/HashProvider/models/IHashProvider';
 
 export default class CreateUserService {
-  constructor(private readonly usersRepository: IUsersRepository) {
+  constructor(
+    private readonly usersRepository: IUsersRepository,
+    private readonly hashProvider: IHashProvider
+  ) {
     this.usersRepository = new PrismaUsersRepository();
   }
 
@@ -29,12 +33,12 @@ export default class CreateUserService {
       throw new AppError('Login address already in use.');
     }
 
-    //HASH PASSWORD
+    const hashedPassword = await this.hashProvider.generateHash(password);
 
     const newUser = new User({
       login,
       email,
-      password,
+      password: hashedPassword,
     });
 
     const user = await this.usersRepository.create(newUser);
