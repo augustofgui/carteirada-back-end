@@ -10,12 +10,12 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@app/*': ['./src/app/*'],
-          '@config/*': ['./src/config/*'],
-          '@core/*': ['./src/core/*'],
-          '@http/*': ['./src/http/*'],
-          '@infra/*': ['./src/infra/*'],
-          '@tests/*': ['./src/tests/*'],
+          '@app': './src/app/*',
+          '@config': './src/config/*',
+          '@core': './src/core/*',
+          '@http': './src/http/*',
+          '@infra': './src/infra/*',
+          '@tests': './src/tests/*',
         },
       },
     ],
