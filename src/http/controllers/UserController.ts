@@ -26,20 +26,16 @@ export default class UserController {
       password,
     });
 
-    return res.json(user);
+    const userResponse: UserDTO = user;
+    delete userResponse.password;
+
+    return res.json(userResponse);
   }
 
   public async auth(req: Request, res: Response) {
     const { email, password } = req.body;
 
-    const usersRepository = new PrismaUsersRepository();
-    const tokenProvider = new JWTTokenProvider();
-    const hashProvider = new BCryptHashProvider();
-    const authenticateUserService = new AuthenticateUserService(
-      usersRepository,
-      tokenProvider,
-      hashProvider
-    );
+    const authenticateUserService = container.resolve(AuthenticateUserService);
 
     const { user, token } = await authenticateUserService.execute({
       email,
@@ -55,8 +51,7 @@ export default class UserController {
   public async getUser(req: Request, res: Response) {
     const id = req.params.id;
 
-    const usersRepository = new PrismaUsersRepository();
-    const getUser = new GetUserService(usersRepository);
+    const getUser = container.resolve(GetUserService);
 
     const user = await getUser.execute({
       id,
@@ -66,8 +61,7 @@ export default class UserController {
   }
 
   public async getAllUsers(req: Request, res: Response) {
-    const usersRepository = new PrismaUsersRepository();
-    const getAllUsers = new GetAllUsersService(usersRepository);
+    const getAllUsers = container.resolve(GetAllUsersService);
 
     const users = await getAllUsers.execute();
 

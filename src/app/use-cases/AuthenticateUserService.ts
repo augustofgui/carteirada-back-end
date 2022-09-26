@@ -1,4 +1,5 @@
 import { User } from '@core/entities/User';
+import { injectable, inject } from 'tsyringe';
 import IUsersRepository from '@core/repositories/IUsersRepository';
 import ITokenProvider from '@infra/providers/TokenProvider/models/ITokenProvider';
 import AppError from '@core/errors/AppError';
@@ -14,10 +15,14 @@ interface IResponse {
   token: string;
 }
 
+@injectable()
 class AuthenticateUserService {
   constructor(
+    @inject('UsersRepository')
     private readonly usersRepository: IUsersRepository,
+    @inject('TokenProvider')
     private readonly tokenProvider: ITokenProvider,
+    @inject('HashProvider')
     private readonly hashProvider: IHashProvider
   ) {}
 

@@ -12,9 +12,7 @@ export default class CreateUserService {
     private readonly usersRepository: IUsersRepository,
     @inject('HashProvider')
     private readonly hashProvider: IHashProvider
-  ) {
-    this.usersRepository = new PrismaUsersRepository();
-  }
+  ) {}
 
   public async execute({
     login,
