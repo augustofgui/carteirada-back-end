@@ -24,9 +24,14 @@ export class User {
 
   constructor({ login, email, password }: ICreateUserDTO) {
     const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+    const loginRegex = new RegExp('[a-z0-9]+');
 
     if (!emailRegex.test(email)) {
       throw new AppError('An user with a invalid email!');
+    }
+
+    if (!loginRegex.test(login)) {
+      throw new AppError('An user with a invalid login!');
     }
 
     this.id = randomUUID();
