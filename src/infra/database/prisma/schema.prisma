@@ -11,11 +11,25 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  login     String   @unique
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id           String        @id @default(uuid())
+  login        String        @unique
+  email        String        @unique
+  password     String
+  createdAt    DateTime      @default(now())
+  ActiveAssets ActiveAsset[]
 
   @@map("users")
+}
+
+model ActiveAsset {
+  active   String
+  date     DateTime
+  ticker   String
+  quantity Float
+  price    Float
+  userId   String
+  User     User     @relation(fields: [userId], references: [id])
+
+  @@unique([active, ticker, userId])
+  @@map("active_assets")
 }
